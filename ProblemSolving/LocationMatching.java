@@ -1,73 +1,106 @@
 
+/* 
+ 
+Ques:-  John is a recruiter in a company and wants to map candidates based on their location preferences.
+        Develop an algorithm to match candidates to the locations based on their preferences.
+ */
+
+
+
 
 import java.util.*;
 
 class Candidate {
-    int id;
-    List<String> preferredLocations;
+    private String name;
+    private String preferredLocation;
+    private int yearsOfExperience;
 
-    public Candidate(int id, List<String> preferredLocations) {
-        this.id = id;
-        this.preferredLocations = preferredLocations;
+    public Candidate(String name, String preferredLocation, int yearsOfExperience) {
+        this.name = name;
+        this.preferredLocation = preferredLocation;
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPreferredLocation() {
+        return preferredLocation;
+    }
+
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
     }
 }
 
 class Location {
-    String name;
-    List<String> attributes;
+    private String name;
+    private int availableSeats;
 
-    public Location(String name, List<String> attributes) {
+    public Location(String name, int availableSeats) {
         this.name = name;
-        this.attributes = attributes;
+        this.availableSeats = availableSeats;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 }
 
 public class LocationMatching {
-    public static Map<Candidate, Location> matchLocations(List<Candidate> candidates, List<Location> locations) {
-        Map<Candidate, Location> matches = new HashMap<>();
-        List<Location> remainingLocations = new ArrayList<>(locations);
+    public static void main(String[] args) {
+        
+        /*  -- Create a list with their prefrences and having year of experience */
+
+        List<Candidate> candidates = new ArrayList<>();
+
+        candidates.add(new Candidate("Sourav", "Kolkata", 5));
+        candidates.add(new Candidate("Suraj", "Delhi", 3));
+        candidates.add(new Candidate("Abhishek", "Hydrabad", 7));
+        candidates.add(new Candidate("Raman", "Bangalore", 4));
+        candidates.add(new Candidate("Rajesh", "Kolkata", 2));
+        candidates.add(new Candidate("Gourav", "Kolkata", 6));
+
+        /* create a list of locations with their available seats */
+
+        List<Location> locations = new ArrayList<>();
+
+        locations.add(new Location("Kolkata", 2));
+        locations.add(new Location("Bangalore", 1));
+        locations.add(new Location("Hydrabad", 1));
+
+        /*  sort the candidates based on their years of experience (in descending order) */
+        
+        Collections.sort(candidates, (c1, c2) -> c2.getYearsOfExperience() - c1.getYearsOfExperience());
+
+        // map each candidate to a location based on their preferences and the available seats
+
+        Map<String, String> candidateLocationMapping = new HashMap<>();
 
         for (Candidate candidate : candidates) {
-            int highestScore = 0;
-            Location bestLocation = null;
-
-            for (Location location : remainingLocations) {
-                int score = 0;
-                for (String preferredLocation : candidate.preferredLocations) {
-                    if (location.attributes.contains(preferredLocation)) {
-                        score++;
-                    }
+            for (Location location : locations) {
+                if (candidate.getPreferredLocation().equals(location.getName()) && location.getAvailableSeats() > 0) {
+                    candidateLocationMapping.put(candidate.getName(), location.getName());
+                    location.setAvailableSeats(location.getAvailableSeats() - 1);
+                   
                 }
-
-                if (score > highestScore) {
-                    highestScore = score;
-                    bestLocation = location;
-                }
-            }
-
-            if (bestLocation != null) {
-                matches.put(candidate, bestLocation);
-                remainingLocations.remove(bestLocation);
             }
         }
 
-        return matches;
-    }
+        // printing the candidate location mapping
 
-    public static void main(String[] args) {
-        List<Candidate> candidates = new ArrayList<>();
-        candidates.add(new Candidate(1, List.of("niceclimate", "nightLife")));
-        candidates.add(new Candidate(2, List.of("diversity", "historical")));
-        candidates.add(new Candidate(3, List.of("lowCost", "EnglishArchitecture")));
-
-        List<Location> locations = new ArrayList<>();
-        locations.add(new Location("Delhi", List.of("diversity", "historical")));
-        locations.add(new Location("Kolkata", List.of("lowCost", "EnglishArchitecture")));
-        locations.add(new Location("Bangalore", List.of("niceclimate", "nightLife")));
-
-        Map<Candidate, Location> matches = matchLocations(candidates, locations);
-        for (Map.Entry<Candidate, Location> match : matches.entrySet()) {
-            System.out.println("Candidate " + match.getKey().id + " is matched to " + match.getValue().name);
+        System.out.println("Candidate Location Mapping:");
+        for (Map.Entry<String, String> entry : candidateLocationMapping.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
     }
 }
