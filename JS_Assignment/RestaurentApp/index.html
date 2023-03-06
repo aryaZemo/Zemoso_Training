@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Restaurant Billing App</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="table-section">
+        <h2>Tables</h2>
+        <div class="search-box">
+          <input type="text" placeholder="Search tables..." id="search-box" />
+        </div>
+        <div class="table-cards">
+          <!-- `<div class="table-card" onclick="table_details(${table_data[i].id});" id="table${i}" ondragover="dragOver(event)" ondrop="drop(event)">
+            <div class="card-body tbl-card">
+                <h3 class="card-title">Table-${table_data[i].id}</h3>
+                <div class="tbl-detail">
+                    <p id="price-area">Total Cost : ${table_data[i].cost} </p>
+                    <p id="items-area">Total Items : ${table_data[i].totalItems.length}</p>
+                </div>
+            </div>
+            </div>` -->
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <h2><b>Menu</b></h2>
+        <div class="menu-search">
+          <input type="text" placeholder="Search menu..." id="menu-search" />
+        </div>
+
+        <div class="Menu-Cards">
+          <!-- `<div class="item-card" draggable="true" id="item${i}" ondragStart= "dragStart(event)" ondragEnd="dragEnd(event)">
+            <div class="card-body">
+                <h3 class="card-title">${items_data[i].name}</h3>
+                <p class="card-text">${items_data[i].description}</p>
+                <p class="">&#8377;${items_data[i].price}</p>
+            </div>
+           </div>` -->
+        </div>
+      </div>
+
+      <!-- Modal HTML -->
+
+      <div
+        class="modal fade"
+        id="tableModal"
+        aria-hidden="true"
+        aria-labelledby="tableModal"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title" id="tableModalLabel">Table</h5>
+              <button
+                type="button"
+                class="btn-close bg-light"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body bill_modal_body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body"></tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-dark close_btn"
+                id="generate_bill_btn"
+                data-bs-dismiss="modal"
+              >
+                Generate Bill
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="generate_bill_Modal"
+        aria-hidden="true"
+        aria-labelledby="tableModal"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title" id="generate_bill_ModalLabel">Table 1</h5>
+              <button
+                type="button"
+                class="btn-close bg-light"
+                id="close_btn1"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body generate_bill_Modal_body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body"></tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary close_btn"
+                data-bs-dismiss="modal"
+                id="close_btn"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
